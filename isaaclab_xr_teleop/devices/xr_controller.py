@@ -163,6 +163,27 @@ class XRControllerDevice(DeviceBase):
         """
         self._measured_joint_positions = joint_positions
 
+    def advance(self) -> torch.Tensor | None:
+        """Process current device state and return control commands.
+
+        Overrides DeviceBase.advance() to filter out None returns from retargeters.
+        This prevents crashes when a retargeter isn't ready yet (e.g., during IK
+        thread initialization) and allows the main loop to render and retry.
+
+        Returns:
+            Concatenated tensor of retargeter outputs, or None if no valid outputs.
+        """
+        raw_data = self._get_raw_data()
+
+        if not self._retargeters:
+            return raw_data
+
+        outputs = [retargeter.retarget(raw_data) for retargeter in self._retargeters]
+        valid_outputs = [o for o in outputs if o is not None]
+        if not valid_outputs:
+            return None
+        return torch.cat(valid_outputs, dim=-1)
+
     def add_callback(self, key: str, func: Callable):
         """Add additional functions to bind to controller buttons.
 

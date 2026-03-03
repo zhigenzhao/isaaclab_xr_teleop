@@ -72,5 +72,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
-    simulation_app.close()
+    try:
+        main()
+    finally:
+        simulation_app.close()

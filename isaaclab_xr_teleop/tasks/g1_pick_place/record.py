@@ -46,9 +46,7 @@ from isaaclab_xr_teleop.recording.loop import (
 
 def sync_fn(env, teleop_interface):
     """G1-specific per-step sync: feed measured arm joints to Mink IK retargeter."""
-    robot = env.scene.get("robot")
-    if robot is None:
-        return
+    robot = env.scene["robot"]
 
     arm_joint_ids = getattr(sync_fn, '_arm_joint_ids', None)
     if arm_joint_ids is None:
@@ -112,5 +110,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
-    simulation_app.close()
+    try:
+        main()
+    finally:
+        simulation_app.close()
