@@ -55,6 +55,7 @@ pip install -e .
       ```
 - In the VR app, connect to the PC via the IP address.
 - Under ```Tracking```, select head, controller, and send. You should be able to see the headset and controller animation moving in the PC app.
+- For more information on XRoboToolkit, see [here](https://github.com/XR-Robotics).
 ## Examples
 
 ### Franka Cube Stacking
