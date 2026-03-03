@@ -92,3 +92,51 @@ python -m isaaclab_xr_teleop.tasks.g1_pick_place.record \
 | X | Reset episode |
 | Y | Pause recording |
 | Right stick | Discard episode |
+
+## Data Collection
+
+### Recording Workflow
+
+1. **Start the recording script** for your task (see [Examples](#examples) above). Ensure the XRoboToolkit-PC-Service is running and the VR headset is connected.
+
+2. **Teleoperate the robot** using the VR controllers:
+   - Hold **Grip** (left/right) to activate the corresponding arm.
+   - Use **Trigger** (left/right) to close the gripper.
+
+3. **Control the recording** with the VR buttons:
+   - Press **A** to start recording the current episode.
+   - Press **Y** to pause recording without discarding the buffer.
+   - Press **B** to save the episode as a successful demonstration.
+   - Press **X** to reset the episode (clears the buffer and resets the scene).
+   - Push **Right Stick** to discard the current episode without saving.
+
+4. **Auto-save:** If the task has a success condition (e.g., cube stacked), the episode is automatically saved after `--num_success_steps` consecutive success steps (default: 10).
+
+5. **Termination:** The script exits automatically after `--num_demos` successful episodes are collected. If `--num_demos` is 0 (default), recording runs indefinitely until you press `Ctrl+C`.
+
+### Example: Collect 50 Franka Demos
+
+```bash
+python -m isaaclab_xr_teleop.tasks.franka_stack.record \
+    --task Isaac-Stack-Cube-Franka-IK-Rel-XR-v0 \
+    --teleop_device xr_controller \
+    --dataset_file ./datasets/franka_stack.hdf5 \
+    --num_demos 50 \
+    --num_success_steps 10 \
+    --step_hz 50 \
+    --device cpu
+```
+
+### Output Format
+
+Demonstrations are saved in **HDF5** format. The output file is timestamped automatically (e.g., `franka_stack_20260303_142530.hdf5`) and placed in the directory derived from `--dataset_file`. Only successfully completed episodes are exported.
+
+To read the collected data:
+```python
+import h5py
+
+with h5py.File("datasets/franka_stack_20260303_142530.hdf5", "r") as f:
+    for episode_id in f.keys():
+        episode = f[episode_id]
+        print(f"Episode {episode_id}: {len(episode['actions'])} steps")
+```
