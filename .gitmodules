@@ -1,0 +1,6 @@
+[submodule "submodules/IsaacLab"]
+	path = submodules/IsaacLab
+	url = https://github.com/isaac-sim/IsaacLab.git
+[submodule "submodules/XRoboToolkit-PC-Service-Pybind"]
+	path = submodules/XRoboToolkit-PC-Service-Pybind
+	url = https://github.com/XR-Robotics/XRoboToolkit-PC-Service-Pybind.git
