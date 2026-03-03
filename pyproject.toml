@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "isaaclab_xr_teleop"
+version = "0.1.0"
+dependencies = [
+    "isaaclab",
+    "isaaclab_assets",
+]
+
+[project.optional-dependencies]
+mink = ["mink", "mujoco", "loop-rate-limiters", "daqp"]
+xrt = ["xrobotoolkit-sdk"]
+franka = ["isaaclab_tasks"]
+
+[tool.setuptools.packages.find]
+include = ["isaaclab_xr_teleop*"]
+
+[tool.setuptools.package-data]
+"isaaclab_xr_teleop.retargeters.g1.data" = ["**/*"]
