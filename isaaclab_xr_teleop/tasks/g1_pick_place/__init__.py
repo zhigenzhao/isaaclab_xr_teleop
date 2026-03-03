@@ -5,11 +5,9 @@
 
 import gymnasium as gym
 
-from . import env_cfg
-
 gym.register(
     id="Isaac-PickPlace-G1-InspireFTP-XR-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
-    kwargs={"env_cfg_entry_point": env_cfg.PickPlaceG1InspireFTPXREnvCfg},
+    kwargs={"env_cfg_entry_point": f"{__name__}.env_cfg:PickPlaceG1InspireFTPXREnvCfg"},
     disable_env_checker=True,
 )

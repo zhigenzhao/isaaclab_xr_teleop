@@ -1,19 +1,16 @@
 [build-system]
 requires = ["setuptools", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "isaaclab_xr_teleop"
 version = "0.1.0"
 dependencies = [
-    "isaaclab",
-    "isaaclab_assets",
+    "mink", 
+    "mujoco", 
+    "loop-rate-limiters", 
+    "daqp"
 ]
-
-[project.optional-dependencies]
-mink = ["mink", "mujoco", "loop-rate-limiters", "daqp"]
-xrt = ["xrobotoolkit-sdk"]
-franka = ["isaaclab_tasks"]
 
 [tool.setuptools.packages.find]
 include = ["isaaclab_xr_teleop*"]
