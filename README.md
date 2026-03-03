@@ -46,6 +46,15 @@ pip install -e .
     ```
 - Note that the XRoboToolkit-PC-Service App should be turned on after every reboot for the headset to be connected.
 
+7. **Install the XR App on Headset**
+- Turn on developer mode on Pico 4 Ultra headset first ([Enable developer mode on Pico 4 Ultra](https://developer.picoxr.com/ja/document/unreal/test-and-build/)), and make sure that [adb](https://developer.android.com/tools/adb) is installed properly.
+- Download [XRoboToolkit-PICO-1.1.1.apk](https://github.com/XR-Robotics/XRoboToolkit-Unity-Client/releases/download/v1.1.1/XRoboToolkit-PICO-1.1.1.apk) on a PC with adb installed. <sup>[[Other Versions](https://github.com/XR-Robotics/XRoboToolkit-Unity-Client/releases)]</sup>
+- To install apk on the headset, use command
+      ```bash
+      adb install -g XRoboToolkit-PICO-1.1.1.apk
+      ```
+- In the VR app, connect to the PC via the IP address.
+- Under ```Tracking```, select head, controller, and send. You should be able to see the headset and controller animation moving in the PC app.
 ## Examples
 
 ### Franka Cube Stacking
@@ -75,6 +84,8 @@ python -m isaaclab_xr_teleop.tasks.g1_pick_place.record \
 ### VR Controller Buttons
 | Button | Action |
 |---|---|
+| Left/Right Grip| Activate Left/Right Arm |
+| Left/Right Trigger | Close Left/Right Gripper |
 | A | Start recording |
 | B | Save demonstration |
 | X | Reset episode |
