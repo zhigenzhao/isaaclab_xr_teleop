@@ -63,7 +63,7 @@ Record teleoperation demonstrations for stacking cubes with a Franka Panda arm (
 ```bash
 python -m isaaclab_xr_teleop.tasks.franka_stack.record \
     --task Isaac-Stack-Cube-Franka-IK-Rel-XR-v0 \
-    --teleop_device xr_controller --device cpu
+    --teleop_device xr_controller --enable_cameras --device cpu
 ```
 
 ### G1 Humanoid Pick-Place

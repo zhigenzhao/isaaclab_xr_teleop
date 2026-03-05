@@ -42,6 +42,9 @@ def make_recording_callbacks(
         print("Recording instance reset requested")
 
     def start_recording_instance():
+        if state.is_running:
+            print("Recording already in progress")
+            return
         state.is_running = True
         env.recorder_manager.record_post_reset([0])
         print("Recording started")
